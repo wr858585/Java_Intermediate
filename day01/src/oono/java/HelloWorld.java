@@ -1,4 +1,4 @@
-package com.oono.java;
+package oono.java;
 
 public class HelloWorld {
     public static void main(String[] args) {
