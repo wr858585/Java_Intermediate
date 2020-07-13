@@ -1,4 +1,4 @@
-package com.oono.java;
+package oono.java;
 
 /**
  * 例子：创建三个窗口卖票，总票数为100张。使用Thread类继承的方式实现的

@@ -1,4 +1,4 @@
-package com.oono.exer;
+package oono.exer;
 
 /**
  * 练习：创建两个分线程，一个遍历100以内的偶数，一个遍历100以内的基数

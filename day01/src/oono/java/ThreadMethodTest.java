@@ -1,4 +1,4 @@
-package com.oono.java;
+package oono.java;
 
 /**
  * 测试Thread类中的常用方法:
