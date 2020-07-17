@@ -7,59 +7,71 @@ package com.oono.java2;
  * @date 2020 07 16
  */
 
-class Clerk2{
+class Clerk2 {
     private int product;
+
     public int getProduct() {
         return product;
     }
-    public synchronized void addProduct(){
-        if (product < 20) {
-            product++;
-            System.out.println(Thread.currentThread().getName() + " adds a product." + product + " remaining.");
-            notify();
-        } else {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+    public void addProduct() {
+        synchronized (this) {
+            if (product < 20) {
+                product++;
+                System.out.println(Thread.currentThread().getName() + " adds a product." + product + " remaining.");
+                notify();
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-    }public synchronized void takeProduct(){
-        if (product > 0) {
-            product--;
-            System.out.println(Thread.currentThread().getName() + " takes a product." + product + " remaining.");
-            notify();
-        } else {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    }
+
+    public void takeProduct() {
+        synchronized (this) {
+            if (product > 0) {
+                product--;
+                System.out.println(Thread.currentThread().getName() + " takes a product." + product + " remaining.");
+                notify();
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 }
 
-class Producer2 extends Thread{
+class Producer2 extends Thread {
     Clerk2 clerkA = new Clerk2();
-    Producer2(Clerk2 clerk2){
+
+    Producer2(Clerk2 clerk2) {
         clerkA = clerk2;
     }
+
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             clerkA.addProduct();
         }
     }
 }
 
-class Customer2 extends Thread{
+class Customer2 extends Thread {
     Clerk2 clerkB = new Clerk2();
-    Customer2(Clerk2 clerk2){
+
+    Customer2(Clerk2 clerk2) {
         clerkB = clerk2;
     }
+
     @Override
     public void run() {
-        while (true){
+        while (true) {
             clerkB.takeProduct();
         }
     }
