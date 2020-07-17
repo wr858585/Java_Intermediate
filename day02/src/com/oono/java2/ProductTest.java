@@ -26,9 +26,9 @@ class Clerk {
         return product;
     }
 
-    public synchronized void addProduct() {
+    public void addProduct() {
 
-//        synchronized (this) {
+        synchronized (Clerk.class) {
             if (product < 20) {
                 product++;
                 System.out.println(Thread.currentThread().getName() + " adds 1 product. " + product + " remaining.");
@@ -40,13 +40,13 @@ class Clerk {
                     e.printStackTrace();
                 }
             }
-//        }
+        }
     }
 
 
-    public synchronized void takeProduct() {
+    public void takeProduct() {
 
-//        synchronized (this) {
+        synchronized (Clerk.class) {
             if (product > 0) {
                 product--;
                 System.out.println(Thread.currentThread().getName() + " takes 1 product. " + product + " remaining.");
@@ -58,7 +58,7 @@ class Clerk {
                     e.printStackTrace();
                 }
             }
-//        }
+        }
     }
 }
 
