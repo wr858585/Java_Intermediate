@@ -15,8 +15,20 @@ public class StringTest {
     1. 常量与常量的拼接结果在常量池中
     2. 只要其中有一个是变量，则结果在堆空间中
     3. 如果拼接的结果调用的是intern()方法，返回值就在常量池中
-
      */
+
+    @Test
+    public void test4(){
+        String s1 = "javaEEHadoop";
+        String s2 = "javaEE";
+        String s3 = s2 + "Hadoop";
+        System.out.println(s1 == s3);//false
+
+        final String s4 = "javeEE";
+        String s5 = s4 + "Hadoop";
+        System.out.println(s1 == s5);//true
+    }
+
 
     @Test
     public void test3(){
