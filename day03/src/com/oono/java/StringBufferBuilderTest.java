@@ -13,6 +13,54 @@ import org.junit.Test;
 public class StringBufferBuilderTest {
 
     /*
+    对比String, StringBuffer, StringBuilder的效率：
+    从高到低排列：StringBuilder > StringBuffer >> String
+     */
+    @Test
+    public void test2(){
+        //初始设置
+        long startTime = 0L;
+        long endTime = 0L;
+        String text = "";
+        StringBuffer buffer = new StringBuffer("");
+        StringBuilder builder = new StringBuilder("");
+        //开始对比
+
+        //StringBuffer
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < 20000; i++) {
+            buffer.append(String.valueOf(i));
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("StringBuffer的执行时间：" + (endTime - startTime));
+
+        //StringBuilder
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < 20000; i++) {
+            builder.append(String.valueOf(i));
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("StringBuilder的执行时间：" + (endTime - startTime));
+
+        //String
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < 20000; i++) {
+            text += i;
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("String的执行时间：" + (endTime - startTime));
+
+/*  Results:
+        StringBuffer的执行时间：8
+        StringBuilder的执行时间：3
+        String的执行时间：1125
+*/
+
+
+    }
+
+
+    /*
     StringBuffer的常用方法（StringBuilder一样）
     1. StringBuffer append(xxx)：提供了很多的append()方法，用于进行字符串的拼接
     2. StringBuffer delete(int start, int end)：删除指定位置的内容
