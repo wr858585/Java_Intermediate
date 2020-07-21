@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -59,19 +60,83 @@ public class DateTimeTest {
 
     /*
     练习一：把字符串"2020-09-08"转换为java.sql.Date类型的数据（应用场景：后端将前端的字符串形式的时间，存入数据库中，就会有转换成java.sql.Date等类型数据的需求）
-
+    练习二："三天打鱼两天晒网" 1990-01-01 xxxx-xx-xx 渔夫是在打鱼还是晒网？
+    举例：2020-09-08
+    需要先计算总天数
+    总天数 % 5 == 1，2，3 --> 打鱼
+    总天数 % 5 == 4, 0 --> 晒网
+    总天数的计算：
+    方式一：把两个String转换成Date类的obj，调用getTime()方法获取时间戳，二者相减得到总共的秒数，再换算成天数。（存在精度损失问题，要+1天）
      */
 
-//    @Test
-//    public void test() throws ParseException {
-//        String str = "2020-09-08";
-//        SimpleDateFormat date = new SimpleDateFormat();
-//        String format = date.format(str);
-//        Date parseDate = date.parse(format);
-//
-//        java.sql.Date sqlDate = (java.sql.Date)parseDate;
-//        System.out.println(sqlDate);
-//    }
+    @Test
+    public void test() throws ParseException {
+        String str = "2020-09-08";
+        //为调用SimpleDateFormat类中的非静态方法parse()对str进行解析
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //调用parse()方法，把str解析成Date类的数据
+        Date parse = sdf.parse(str);
+
+/*
+        java.sql.Date sqlDate = (java.sql.Date)parse;
+        System.out.println(sqlDate);
+        这种方式就错了。原因：Date父类根本就没有子类java.sql.Date的结构，所以向下强转必定失败
+        报错：java.lang.ClassCastException: java.util.Date cannot be cast to java.sql.Date
+*/
+
+        //调用java.sql.Date的唯一构造器java.sql.Date(long time)来造对象，time为时间戳。由于已经把String类的时间解析为Date类的对象parse，所以用parse调用Date类的结构getTime()即可得到时间戳
+        java.sql.Date date = new java.sql.Date(parse.getTime());
+        System.out.println(date);//2020-09-08
+
+    }
+
+    /*
+    Calendar日历类的使用
+    1. 如何实例化：
+    ① 方式一：由于Calendar类是抽象类，所以需要借助子类GregorianCalendar来造对象
+    ② 方式二：调用Calendar类的静态方法getInstance()
+    2. 常用操作（方法）
+    ① get()
+    ②
+     */
+
+    @Test
+    public void testCalendar(){
+
+        //1. 实例化
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar.getClass());
+
+        //2. 常用方法
+
+        //get()：返回指定Calendar抽象类中定义的static属性（由于是静态属性，所以实例或Calendar类都可以获取到）
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println(day);//21
+        System.out.println(calendar.get(calendar.DAY_OF_YEAR));//203
+        System.out.println(calendar.get(Calendar.DAY_OF_WEEK));//3
+
+        //set()：设置这些static属性（非final，所以可以改）
+        calendar.set(Calendar.DAY_OF_MONTH, 22);
+        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));//22
+
+        //add()：修改这些static属性（正数+，负数-）
+        calendar.add(calendar.DAY_OF_MONTH, -2);
+        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));//20
+
+        //getTime()：相当于把Calendar类的对象 --> Date类的对象
+        Date date = calendar.getTime();
+        System.out.println(date);//Mon Jul 20 16:11:59 CST 2020
+
+        //setTime()：相当于把Date类 --> Calendar类
+        Date date1 = new Date();
+        calendar.setTime(date1);
+        System.out.println(calendar.get(calendar.DAY_OF_MONTH));//21，因为Date()空参构造器造的是当前的时间
+
+
+
+    }
+
+
 
 
 }
