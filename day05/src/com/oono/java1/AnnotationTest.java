@@ -1,5 +1,10 @@
 package com.oono.java1;
 
+import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+
 /**
  * 1. 理解Annotation：
  * ① JDK5.0新增功能（以前用配置文件做）
@@ -27,18 +32,47 @@ package com.oono.java1;
  *
  * 自定义注解，必须配上注解的信息处理流程（使用反射）才有意义
  *
- * 4. JDK提供的4种元注解：
- * ①
+ * 4. JDK提供的4种元注解：对现有注解进行解释说明的注解
+ * ① Retention：指定所修饰的Annotation的生命周期
+ *      > SOURCE：注解只用源文件中保留，javac命令对源文件进行编译，编译器丢弃该注解，且生成的字节码文件xxx.class不包含该注解
+ *      > CLASS：注解在编译时保留，在运行时丢弃 --> 不会加载到内存中给CPU处理[这是默认选项]
+ *      > RUNTIME：只有声明为RUNTIME的生命周期的注解，才能通过反射获取，因为该注解在内存中
+ * ② Target：指定所修饰的Annotation能够用来修饰的结构/元素
+ * ***************下面两个出现频率较低********************
+ * ③ Documented：表示所修饰的Annotation在被javadoc解析时，会保留下来
+ * ④ Inherited：
  *
+ * 5. 通过反射来获取注解信息：（到反射时会细讲 ）
+ *
+ * 6. JDK8.0中注解的新特性：可重复注解、类型注解
+ * 6.1 可重复注解：
+ * ① 在MyAnnotation上声明@Repeatable，成员值为MyAnnotation.class
+ * ② MyAnnotation的@Target和@Retention等元注解必须和MyAnnotations相同，否则报错
+ * 6.2 类型注解：
+ * ① Element.TYPE_PARAMETER：表示该注解能写在类型变量的声明语句中（如：泛型声明）
+ * ② Element.TYPE_USE：表示该注解能写在使用类型的任何语言中
  *
  * @author oono
  * @date 2020 07 26
  */
 public class AnnotationTest {
+
+    @Test
+    public void testGetAnnotation() {
+        Class<Student> clazz = Student.class;
+        Annotation[] annotations = clazz.getAnnotations();
+
+        for (int i = 0; i < annotations.length; i++) {
+            System.out.println(annotations[i]);
+        }
+    }
+
 }
 
 //@MyAnnotation(value = "world")
-@MyAnnotation()
+@MyAnnotation("123")
+@MyAnnotation("abc")
+
 class Person{
 
     private String name;
@@ -74,6 +108,19 @@ class Student extends Person implements info{
 
     @Override
     public void show() {
+
+    }
+
+}
+
+class Generic<@MyAnnotation T>{
+
+    public void show() throws @MyAnnotation RuntimeException{
+        ArrayList<@MyAnnotation String> list = new ArrayList<>();
+
+        int num = (@MyAnnotation int)10L;
+
+
 
     }
 
