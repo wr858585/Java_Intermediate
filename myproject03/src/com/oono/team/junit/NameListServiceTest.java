@@ -1,10 +1,10 @@
 package com.oono.team.junit;
 
-import org.junit.Test;
 
 import com.oono.team.domain.Employee;
 import com.oono.team.service.NameListService;
 import com.oono.team.service.TeamException;
+import org.junit.Test;
 
 /**
  * 对NameListService类的测试	
