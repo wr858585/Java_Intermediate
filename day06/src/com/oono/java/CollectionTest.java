@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Collection接口中声明的方法测试
@@ -101,7 +102,33 @@ public class CollectionTest {
         coll2.add(new String("Tom"));
         coll2.add(false);
 
-        System.out.println(coll.equals(coll1));
+        System.out.println(coll.equals(coll1));//true
+
+        //hashcode()：返回当前对象的哈希值（定义在Object类中的方法）
+        System.out.println(coll.hashCode());//-1200490100
+
+        //toArray()：集合 --> 数组
+        Object[] arr = coll.toArray();
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+
+        //扩展：数组 --> 集合 -- 调用Arrays工具类的静态方法asList()
+        List<String> strings = Arrays.asList(new String[]{"AA", "BB", "CC"});
+        System.out.println(strings);//[AA, BB, CC]
+
+        List arr1 = Arrays.asList(new int[]{123,456});
+        System.out.println(arr1.size());//1
+        System.out.println(arr1);//[[I@78e03bb5]
+
+        List arr2 = Arrays.asList(new Integer[]{123,456});
+        System.out.println(arr2.size());//2
+        System.out.println(arr2);//[123, 456]
+
+        //iterator()：返回Iterator接口的实例，用于遍历集合的元素。放在IteratorTest.java中进行测试
+
+
+
 
 
 
