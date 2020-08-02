@@ -51,15 +51,21 @@ public class ForTest {
     public void test3(){
 
         String[] arr = new String[]{"MM","MM","MM"};
-
+/*
+        //方式一：普通for循环 --> 赋值操作成功，arr改成了{"GG","GG","GG"}
         for(int i = 0; i < arr.length; i++){
             arr[i] = "GG";
         }
+*/
+
+        //方式二：增强for循环 --> 赋值操作失败，arr仍然为{"MM","MM","MM"}，因为
+        for(String str : arr){
+            str = "GG";
+        }
+
         for(int i = 0; i < arr.length; i++){
             System.out.println(arr[i]);
         }
-
-        //
 
 
 
