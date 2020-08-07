@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -57,7 +58,6 @@ import java.util.List;
  * 见上面
  *
  * List接口中的常用方法
- * 1.
  *
  *
  * @author oono
@@ -66,8 +66,43 @@ import java.util.List;
 public class ListTest {
 
     /*
-
+    总结：List接口中常用方法
+    增：add(Object obj) --> 在末尾添加，相当于py的append
+    删：remove(int index) / remove(Object ele)
+    改：set(int index, Object ele)
+    查：get(int index)
+    插入：add(int index, Object ele)
+    长度：size()
+    遍历：① iterator迭代器 ② 增强for循环 ③ 普通for循环，因为有index在ArrayList中可以用了
      */
+
+    @Test
+    public void test3(){
+
+        ArrayList list = new ArrayList();
+        list.add(123);
+        list.add(456);
+        list.add("AA");
+
+        //方式一：使用迭代器遍历
+        Iterator iterator = list.iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+
+        //方式二：增强for循环
+        for(Object obj : list){
+            System.out.println(obj);
+        }
+
+        //方式三：for循环
+        for(int i = 0; i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+
+
+    }
+
 
     @Test
     public void test2(){
@@ -87,6 +122,19 @@ public class ListTest {
         System.out.println(list.lastIndexOf(456));//4
 
         //mtd6. Object remove(int index)：移除指定index位置的元素，并返回此元素
+        Object remove = list.remove(0);
+        System.out.println(remove);//123
+        System.out.println(list);//[456, AA, Person{name=Tom, age=12}, 456]
+
+        //mtd7. Object set(int index, Object ele)：设置指定index位置的元素为ele
+        list.set(1,"CC");
+        System.out.println(list);//[456, CC, Person{name=Tom, age=12}, 456]
+
+        //mtd8. List subList(int fromIndex, int toIndex)：返回左闭右开区间的子集合
+        List subList = list.subList(2, 4);
+        System.out.println(subList);//[Person{name=Tom, age=12}, 456]
+        System.out.println(list);//[456, CC, Person{name=Tom, age=12}, 456] --> 不会改变原有的list！
+
 
 
 
