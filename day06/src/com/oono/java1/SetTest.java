@@ -12,7 +12,7 @@ import java.util.Set;
  * |--Collection接口：单列集合，用来存储一个一个的对象
  *      |--Set接口：存储无序的、不可重复的数据
  *          |--HashSet：作为Set接口的主要实现类；线程不安全；可以存储null值
- *              |--LinkedHashSet：是HashSet的子类；遍历其内部数据时，可以按照添加顺序去遍历
+ *              |--LinkedHashSet：是HashSet的子类；遍历其内部数据时，可以按照添加顺序去遍历；对于频繁的遍历操作，效率比HashSet高
  *          |--TreeSet：可以按照添加的对象的指定属性，进行排序（红黑树）
  *
  * 2. Set接口中没有额外定义新的方法，所以只有Collection接口中提供的方法
