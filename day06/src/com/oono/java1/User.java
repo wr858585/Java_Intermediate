@@ -6,7 +6,7 @@ import java.util.Objects;
  * @author oono
  * @date 2020 08 07
  */
-public class User {
+public class User implements Comparable{
 
     private String name;
     private int age;
@@ -50,4 +50,20 @@ public class User {
     public int hashCode() {
         return Objects.hash(name, age);
     }
+
+    //按照姓名从小到大排列，年龄从小到大排列
+    public int compareTo(Object o){
+        if(o instanceof User){
+            User user = (User)o;
+//            return this.name.compareTo(user.name);
+            int compare = this.name.compareTo(user.name);
+            if(compare != 0){
+                return compare;
+            }else{
+                return Integer.compare(this.age,user.age);
+            }
+        }
+        throw new RuntimeException("输入的类型不匹配");
+    }
+
 }
