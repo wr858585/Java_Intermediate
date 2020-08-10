@@ -47,6 +47,7 @@ public class Employee implements Comparable{
         return "Employee{name=" + name + ", age=" + age + ", birthday=" + birthday + "}";
     }
 
+    //按照姓名的顺序排
     public int compareTo(Object o){
         if(o instanceof Employee){
             Employee e = (Employee)o;
