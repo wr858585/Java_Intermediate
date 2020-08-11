@@ -44,4 +44,14 @@ public class SetAsFilterTest {
 
     }
 
+    @Test
+    public void test2(){
+        int i = 1;
+        int j = 0;
+//        i = i + 1;
+//        j = i++;
+//        i = i++;
+        System.out.println(i);//
+    }
+
 }
