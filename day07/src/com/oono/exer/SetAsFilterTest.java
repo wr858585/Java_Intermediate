@@ -54,4 +54,10 @@ public class SetAsFilterTest {
         System.out.println(i);//
     }
 
+    @Test
+    public void test3(){
+
+    }
+
+
 }
