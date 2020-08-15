@@ -57,6 +57,27 @@ public class SetAsFilterTest {
     @Test
     public void test3(){
 
+        HashSet set = new HashSet();
+        Person p1 = new Person(1001,"AA");
+        Person p2 = new Person(1002,"BB");
+
+        set.add(p1);
+        set.add(p2);
+        p1.name = "CC";
+
+        //经典三问
+
+        set.remove(p1);
+        System.out.println(set);//[Person{name=BB, id=1002}, Person{name=CC, id=1001}]
+
+        set.add(new Person(1001,"CC"));
+        System.out.println(set);//[Person{name=BB, id=1002}, Person{name=CC, id=1001}, Person{name=CC, id=1001}]
+
+        set.add(new Person(1001,"AA"));
+        System.out.println(set);//[Person{name=BB, id=1002}, Person{name=CC, id=1001}, Person{name=CC, id=1001}, Person{name=AA, id=1001}]
+
+
+
     }
 
 
