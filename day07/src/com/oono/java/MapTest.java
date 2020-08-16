@@ -31,6 +31,8 @@ import java.util.HashMap;
  * 这里，因为entry已经通过key的hashCode()+equals()方法快速定位了要找的是哪一个entry，自然其属性value也就马上出来了，所以无需再用hashCode()定位，直接equals()比较即可]
  * ③ 一个键值对：key-value构成一个entry对象，Map中的entry也是存储的一个无序的、不可重复的 --> 使用Set存储
  *
+ * 5.
+ *
  * @author oono
  * @date 2020 08 15
  */
