@@ -31,7 +31,22 @@ import java.util.HashMap;
  * 这里，因为entry已经通过key的hashCode()+equals()方法快速定位了要找的是哪一个entry，自然其属性value也就马上出来了，所以无需再用hashCode()定位，直接equals()比较即可]
  * ③ 一个键值对：key-value构成一个entry对象，Map中的entry也是存储的一个无序的、不可重复的 --> 使用Set存储
  *
- * 5.
+ * 5. HashMap的底层实现原理（JDK7中）
+ * ① HashMap map = new HashMap();
+ * --> 在实例化以后，底层创建了一个长度为16的一维数组，类型为Entry，即是说Entry[] table
+ * (可能之后执行若干次put）
+ * ② map.put(key1, value1);
+ * 1> 首先调用key1所在类的hashCode()方法，计算出key的hash值；此hash值经过某种算法以后，得到entry1在Entry[]数组中的存放位置
+ * 2> 如果此位置上的数据为null，key1-value1这个entry1则添加成功 --> 情况1
+ *    如果此位置上的数据不为null，则此位置上已经存在一个或多个数据（以链表形式存放多个），则去比较key1和已经存在的一个或多个数据的hash值：
+ *      如果key1的hash值与已经存在的数据hash值都不相同，则key1-value1添加成功； --> 情况2
+ *      如果key1的hash值与已经存在的某一个数据key2-value2的hash值相同，则需要调用key1所在类的equals()方法，进行比较：
+ *          如果equals()返回false，则entry1添加成功 --> 情况3
+ *          如果equals()返回true，则使用value1替换掉value2（这点不同于理解！）
+ *
+ *    补充说明：关于情况2和情况3，此时key1-value1和原来的数据以链表的方式存储在一起（仍然七上八下针对JDK7&8)
+ * ③ 在添加过程中，会不停地遇到扩容的问题。默认扩容为原来容量的2倍，并将原有数据复制到新数组中
+ *
  * 6，
  *
  * @author oono
